@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: fnet-sqlserver
+    env: docker
+    docker:
+      dockerfile: Dockerfile
+    envVars:
+      - key: SA_PASSWORD
+        value: 88LAk+#9Dlb7Wb&SvrAra1
+      - key: ACCEPT_EULA
+        value: "Y"
