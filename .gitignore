@@ -1,3 +1,6 @@
 # Ignorar archivos temporales
 *.tmp
 *.log
+
+#Miselaneos
+Nota.txt
