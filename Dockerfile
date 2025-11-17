@@ -17,26 +17,24 @@
 # CMD /bin/bash /scripts/init-database.sh & /opt/mssql/bin/sqlservr
 
 
-# Usar una versión más reciente que pueda tener mejor compatibilidad
-FROM mcr.microsoft.com/mssql/server:2022-latest
+# Usar la imagen oficial de SQL Server 2019
+FROM mcr.microsoft.com/mssql/server:2019-latest
 
-# Crear directorio para scripts
-RUN mkdir -p /scripts
-WORKDIR /scripts
+# Establecer el directorio de trabajo
+WORKDIR /app
 
-# Copiar scripts de inicialización
-COPY ./scripts /scripts/
+# Copiar el archivo de backup al contenedor
+COPY FNET_A2K12.bak /app/FNET_A2K12.bak
 
-# Dar permisos de ejecución
-RUN chmod +x /scripts/*.sh
+# Copiar los scripts al directorio de scripts
+COPY scripts/ /app/scripts/
 
-# Establecer variables de entorno
-ENV ACCEPT_EULA=Y
-ENV SA_PASSWORD=TuContraseñaSegura123!
-ENV MSSQL_PID=Express
+# Dar permisos de ejecución a los scripts
+RUN chmod +x /app/scripts/entrypoint.sh
+RUN chmod +x /app/scripts/restore-db.sh
 
-# Exponer puerto
+# Exponer el puerto de SQL Server
 EXPOSE 1433
 
-# Comando de inicio personalizado
-CMD /opt/mssql/bin/sqlservr
+# Establecer el script de entrada personalizado
+CMD ["/app/scripts/entrypoint.sh"]
