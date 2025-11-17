@@ -16,7 +16,6 @@
 # # Comando de inicio
 # CMD /bin/bash /scripts/init-database.sh & /opt/mssql/bin/sqlservr
 
-
 # Usar la imagen oficial de SQL Server 2019
 FROM mcr.microsoft.com/mssql/server:2019-latest
 
@@ -26,12 +25,8 @@ WORKDIR /app
 # Copiar el archivo de backup al contenedor
 COPY FNET_A2K12.bak /app/FNET_A2K12.bak
 
-# Copiar los scripts al directorio de scripts
-COPY scripts/ /app/scripts/
-
-# Dar permisos de ejecución a los scripts
-RUN chmod +x /app/scripts/entrypoint.sh
-RUN chmod +x /app/scripts/restore-db.sh
+# Copiar los scripts y darles permisos de ejecución en un solo paso
+COPY --chmod=0755 scripts/ /app/scripts/
 
 # Exponer el puerto de SQL Server
 EXPOSE 1433
