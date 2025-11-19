@@ -1,9 +1,10 @@
-#!/bin/bash
+git add scripts/entrypoint.sh#!/bin/bash
 
 # Función para verificar si SQL Server está listo
 wait_for_sql_server() {
     echo "Esperando a que SQL Server se inicie..."
-    until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -Q "SELECT 1" &> /dev/null
+    # CORRECCIÓN: Usar la nueva ruta de sqlcmd y la bandera -C
+    until /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P $SA_PASSWORD -Q "SELECT 1" &> /dev/null
     do
         echo "."
         sleep 5
