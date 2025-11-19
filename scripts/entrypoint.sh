@@ -19,9 +19,12 @@ wait_for_sql_server
 echo "Ejecutando script de restauración de base de datos..."
 /app/scripts/restore-db.sh
 
-# INICIO: Servidor web dummy para el health check de Render
-echo "Iniciando servidor web dummy en el puerto 8080 para el health check de Render..."
-python3 -m http.server 8080 &
+# INICIO: Servidor web dummy con netcat para el health check de Render
+echo "Iniciando servidor web dummy con netcat en el puerto 8080..."
+# Este comando mantiene un proceso escuchando en el puerto 8080
+while true; do
+    echo -e "HTTP/1.1 200 OK\r\n\r\nRenderHealthCheckOK" | nc -l -p 8080
+done &
 # FIN: Servidor web dummy
 
 # Mantener el contenedor en ejecución (el proceso principal)
