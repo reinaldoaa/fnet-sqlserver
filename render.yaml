@@ -1,3 +1,5 @@
+# Rendered from https://github.com/reinaldoaa/fnet-sqlserver/blob/main/docker-compose.yml
+# https://fabrinet-db-v2.onrender.com
 services:
   - type: web
     name: fnet-sqlserver

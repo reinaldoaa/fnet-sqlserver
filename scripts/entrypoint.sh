@@ -18,5 +18,11 @@ wait_for_sql_server
 # Ejecutar el script de restauración
 echo "Ejecutando script de restauración de base de datos..."
 /app/scripts/restore-db.sh
+
+# INICIO: Servidor web dummy para el health check de Render
+echo "Iniciando servidor web dummy en el puerto 8080 para el health check de Render..."
+python3 -m http.server 8080 &
+# FIN: Servidor web dummy
+
 # Mantener el contenedor en ejecución (el proceso principal)
 wait
