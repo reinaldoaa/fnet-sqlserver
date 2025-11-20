@@ -1,3 +1,5 @@
+# /scripts/restore-db.sh
+
 #!/bin/bash
 
 # Salir inmediatamente si un comando falla

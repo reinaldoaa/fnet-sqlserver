@@ -1,3 +1,5 @@
+# /scripts/init-database.sh
+
 #!/bin/bash
 # Esperar a que SQL Server esté listo
 echo "Esperando a que SQL Server esté listo..."
